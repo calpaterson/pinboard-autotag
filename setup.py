@@ -9,6 +9,9 @@ config = {
     "install_requires": [
         "SQLAlchemy>=1.0.0",
         "Click>=5.1",
+        "requests==2.7.0",
+        "lxml==3.4.4",
+        "cssselect==0.9.1",
     ],
     "packages": ["pinboard_autotag"],
     "scripts": [],
