@@ -27,7 +27,7 @@ def get_bookmarks(api_token):
 
     tree = html.fromstring(all_bookmarks.content)
     sel = CSSSelector("post")
-    hrefs = (e.get("href") for e in sel(tree))
+    bookmarks = {(e.get("href"), e.get("description")) for e in sel(tree)}
 
-    for bookmark_url in hrefs:
-        logger.info(bookmark_url)
+    for bookmark_url, title in bookmarks:
+        logger.info(title)
