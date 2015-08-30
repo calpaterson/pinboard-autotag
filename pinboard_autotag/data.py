@@ -61,7 +61,6 @@ class BookmarkContentType(Base):
 
     href = Column(ForeignKey("bookmarks.href"), primary_key=True)
     mimetype = Column(Text, nullable=False)
-    character_set = Column(Text, nullable=False)
 
 
 class BookmarkContents(Base):

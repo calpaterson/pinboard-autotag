@@ -15,6 +15,7 @@ from pinboard_autotag.data import (
     BookmarkContents,
     BookmarkTitle,
     BookmarkProblem,
+    BookmarkContentType,
     metadata,
 )
 
@@ -116,6 +117,10 @@ def download_links():
                 ))
                 s.commit()
                 continue
+            s.add(BookmarkContentType(
+                href=url,
+                mimetype=response.headers["Content-Type"]
+            ))
             s.add(BookmarkContents(
                 href=url,
                 contents=response.content
