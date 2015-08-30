@@ -7,6 +7,7 @@ config = {
     "author_email": "cal@calpaterson.com",
     "version": "0.0",
     "install_requires": [
+        "pytz",
         "SQLAlchemy>=1.0.0",
         "Click>=5.1",
         "requests==2.7.0",

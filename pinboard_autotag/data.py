@@ -1,6 +1,10 @@
-from sqlalchemy import MetaData, Column, Text, ForeignKey
+from datetime import datetime
+
+from pytz import UTC
+from sqlalchemy import MetaData, Column, Text, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.dialects.sqlite import BLOB
 
 convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -58,3 +62,32 @@ class BookmarkContentType(Base):
     href = Column(ForeignKey("bookmarks.href"), primary_key=True)
     mimetype = Column(Text, nullable=False)
     character_set = Column(Text, nullable=False)
+
+
+class BookmarkContents(Base):
+    __tablename__ = "bookmark_contents"
+
+    href = Column(
+        ForeignKey("bookmarks.href"),
+        primary_key=True,
+        index=True,
+    )
+    contents = Column(
+        BLOB,
+        nullable=False,
+    )
+
+
+class BookmarkProblem(Base):
+    __tablename__ = "bookmark_problems"
+    href = Column(
+        ForeignKey("bookmarks.href"),
+        primary_key=True,
+        index=True)
+    attempt_time = Column(
+        DateTime(timezone=True),
+        default=lambda: UTC.localize(datetime.utcnow()),
+        primary_key=True,
+        index=True,
+    )
+    problem = Column(Text, primary_key=True, index=True)
